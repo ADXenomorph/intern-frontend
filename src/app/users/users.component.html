@@ -1,0 +1,11 @@
+<h2>User list</h2>
+<div class="user-list">
+<app-user *ngFor="let user of (userList | async)?.payload"
+  [id]="user.user_id"
+  [firstName]="user.first_name"
+  [lastName]="user.last_name"
+  (afterRequest)="loadUsers()"
+></app-user>
+</div>
+
+<app-user-form (afterRequest)="loadUsers()"></app-user-form>

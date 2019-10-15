@@ -1,0 +1,9 @@
+:host {
+  padding-top: 10px;
+  display: block;
+}
+
+:host .user-form-card {
+  padding-right: 10px;
+  max-width: 200px;
+}

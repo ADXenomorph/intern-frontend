@@ -1,0 +1,9 @@
+:host {
+  display: block;
+  padding-left: 10px;
+}
+
+:host .user-list {
+  display:flex;
+  flex-direction: row;
+}

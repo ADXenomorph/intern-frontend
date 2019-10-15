@@ -1,0 +1,24 @@
+<mat-card class="order-card">
+  <mat-card-header>
+    <mat-card-title>Order {{id}}</mat-card-title>
+  </mat-card-header>
+  <mat-card-content *ngIf="!isEditMode">
+    <p>ID: {{ id }}</p>
+    <p>User ID: {{ userId }}</p>
+    <p>Item name: {{ itemName }}</p>
+
+    <mat-spinner [style.display]="showSpinner ? 'block' : 'none'"></mat-spinner>
+  </mat-card-content>
+  <mat-card-content *ngIf="isEditMode">
+    <app-order-form
+      [id]="id"
+      [userId]="userId"
+      [itemName]="itemName"
+      (afterRequest)="triggerEvent()"
+    ></app-order-form>
+  </mat-card-content>
+  <mat-card-actions>
+    <button mat-raised-button (click)="edit()" color="primary">Edit</button>
+    <button mat-raised-button (click)="delete()" color="secondary">Delete</button>
+  </mat-card-actions>
+</mat-card>

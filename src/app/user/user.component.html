@@ -1,0 +1,24 @@
+<mat-card class="user-card">
+  <mat-card-header>
+    <mat-card-title>{{lastName + ' ' + firstName}}</mat-card-title>
+  </mat-card-header>
+  <mat-card-content *ngIf="!isEditMode">
+    <p>ID: {{ id }}</p>
+    <p>First name: {{ firstName }}</p>
+    <p>Last name: {{ lastName }}</p>
+
+    <mat-spinner [style.display]="showSpinner ? 'block' : 'none'"></mat-spinner>
+  </mat-card-content>
+  <mat-card-content *ngIf="isEditMode">
+    <app-user-form
+      [firstName]="firstName"
+      [lastName]="lastName"
+      [id]="id"
+      (afterRequest)="triggerEvent()"
+    ></app-user-form>
+  </mat-card-content>
+  <mat-card-actions>
+    <button mat-raised-button (click)="edit()" color="primary">Edit</button>
+    <button mat-raised-button (click)="delete()" color="secondary">Delete</button>
+  </mat-card-actions>
+</mat-card>

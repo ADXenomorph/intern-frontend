@@ -1,0 +1,11 @@
+<h2>Order list</h2>
+<div class="order-list">
+<app-order *ngFor="let order of (orderList | async)?.payload"
+  [id]="order.order_id"
+  [userId]="order.user_id"
+  [itemName]="order.item_name"
+  (afterRequest)="loadOrders()"
+></app-order>
+</div>
+
+<app-order-form (afterRequest)="loadOrders()"></app-order-form>
