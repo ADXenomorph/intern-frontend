@@ -1,5 +1,7 @@
 import { BrowserModule } from '@angular/platform-browser';
-import { NgModule } from '@angular/core';
+import { LOCALE_ID, NgModule } from '@angular/core';
+import { registerLocaleData } from '@angular/common';
+import localeRu from '@angular/common/locales/ru';
 
 import { AppRoutingModule } from './app-routing.module';
 import { AppComponent } from './app.component';
@@ -16,7 +18,7 @@ import {
   MatListModule,
   MatCardModule,
   MatInputModule,
-  MatProgressSpinnerModule
+  MatProgressSpinnerModule, MatTableModule
 } from '@angular/material';
 import { HttpClientModule } from '@angular/common/http';
 import { UserComponent } from './user/user.component';
@@ -24,6 +26,13 @@ import { UserFormComponent } from './user-form/user-form.component';
 import {FormsModule} from '@angular/forms';
 import { OrderComponent } from './order/order.component';
 import { OrderFormComponent } from './order-form/order-form.component';
+import { TreeComponent } from './tree/tree.component';
+import { TasksComponent } from './tasks/tasks.component';
+import { TaskComponent } from './task/task.component';
+import { TaskFormComponent } from './task-form/task-form.component';
+import { TaskProgressListComponent } from './task-progress-list/task-progress-list.component';
+
+registerLocaleData(localeRu);
 
 @NgModule({
   declarations: [
@@ -34,7 +43,12 @@ import { OrderFormComponent } from './order-form/order-form.component';
     UserComponent,
     UserFormComponent,
     OrderComponent,
-    OrderFormComponent
+    OrderFormComponent,
+    TreeComponent,
+    TasksComponent,
+    TaskComponent,
+    TaskFormComponent,
+    TaskProgressListComponent,
   ],
   imports: [
     FormsModule,
@@ -50,9 +64,12 @@ import { OrderFormComponent } from './order-form/order-form.component';
     MatButtonModule,
     MatSidenavModule,
     MatIconModule,
-    MatListModule
+    MatListModule,
+    MatTableModule,
   ],
-  providers: [],
+  providers: [
+    { provide: LOCALE_ID, useValue: 'en' }
+  ],
   bootstrap: [AppComponent]
 })
 export class AppModule { }

@@ -1,0 +1,9 @@
+<h1>Task list</h1>
+<div class="task-list">
+  <app-task *ngFor="let task of (list | async)"
+    [task]="task"
+    (afterRequest)="loadTasks()"
+  ></app-task>
+</div>
+
+<app-task-form (afterRequest)="loadTasks()"></app-task-form>

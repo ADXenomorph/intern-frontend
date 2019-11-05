@@ -1,0 +1,30 @@
+table {
+  width: 100%;
+}
+
+.mat-table {
+  max-width: 1000px;
+}
+
+.mat-column-taskId,
+.mat-column-progress,
+.mat-column-goal,
+.mat-column-percent {
+  flex: 0 0 64px;
+}
+
+.mat-column-name {
+  flex-basis: 200px;
+}
+
+.mat-column-actions {
+  justify-items: flex-start;
+}
+
+.done-icon {
+  color: green;
+  font-size: 32px;
+  line-height: 32px;
+  width: 32px;
+  height: 32px;
+}

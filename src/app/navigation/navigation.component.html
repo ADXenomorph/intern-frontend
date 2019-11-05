@@ -4,17 +4,28 @@
       [mode]="(isHandset$ | async) ? 'over' : 'side'"
       [opened]="!(isHandset$ | async)">
     <mat-toolbar class="logo-toolbar">
-      <img class="logo" src="/assets/logo.png"/>
+      <img class="logo" src="/assets/logo.svg"/>
+      <span class="logo-title">Roowix</span>
     </mat-toolbar>
     <mat-nav-list>
       <a mat-list-item routerLink="/users">
         <mat-icon mat-list-icon>accessibility_new</mat-icon>
-        Users
+        <span>Users</span>
       </a>
 
-      <a mat-list-item routerLink="/orders">
+      <!--<a mat-list-item routerLink="/orders">
         <mat-icon mat-list-icon>attach_money</mat-icon>
-        Orders
+        <span>Orders</span>
+      </a>-->
+
+      <a mat-list-item routerLink="/tasks">
+        <mat-icon mat-list-icon>assignment</mat-icon>
+        <span>Edit tasks</span>
+      </a>
+
+      <a mat-list-item routerLink="/progress">
+        <mat-icon mat-list-icon>done</mat-icon>
+        <span>My tasks</span>
       </a>
     </mat-nav-list>
   </mat-sidenav>
@@ -28,8 +39,7 @@
         *ngIf="isHandset$ | async">
         <mat-icon aria-label="Side nav toggle icon">menu</mat-icon>
       </button>
-      <span>Roowix internship</span>
     </mat-toolbar>
-    <router-outlet></router-outlet>
+    <mat-card class="content"><router-outlet></router-outlet></mat-card>
   </mat-sidenav-content>
 </mat-sidenav-container>

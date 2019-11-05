@@ -1,5 +1,10 @@
 import { Injectable } from '@angular/core';
 import { HttpClient } from '@angular/common/http';
+import {Task} from './models/task';
+import {Response} from './models/response';
+import {Observable} from 'rxjs';
+import {map} from 'rxjs/operators';
+import {TaskProgress} from './models/task-progress';
 
 @Injectable({
   providedIn: 'root'
@@ -29,5 +34,39 @@ export class ApiService {
 
   public deleteOrder(id) {
     return this.http.delete('/api/orders/' + id);
+  }
+
+  public loadTasks(): Observable<Task[]> {
+    return this.http.get<Response<Task[]>>('/api/tasks').pipe(
+      map(response => response.payload)
+    );
+  }
+
+  public loadTaskById(taskId: number): Observable<Task|null> {
+    return this.http.get<Response<Task[]>>('/api/tasks/' + taskId).pipe(
+      map(response => response.payload.length ? response.payload[0] : null)
+    );
+  }
+
+  public upsertTask(task: Task) {
+    return this.http.post('/api/tasks', task);
+  }
+
+  public deleteTask(task: Task) {
+    return this.http.delete('/api/tasks/' + task.task_id);
+  }
+
+  public upsertTaskProgress(progress: TaskProgress) {
+    return this.http.post('/api/progress', progress);
+  }
+
+  public loadProgressByTask(taskId: number): Observable<TaskProgress[]> {
+    return this.http.get<Response<TaskProgress[]>>('/api/tasks/' + taskId + '/progress').pipe(
+      map(res => res.payload)
+    );
+  }
+
+  public addProgressByTask(taskId: number, progress: number) {
+    return this.http.post('/api/tasks/' + taskId + '/progress', {progress});
   }
 }

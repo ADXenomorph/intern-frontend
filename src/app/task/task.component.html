@@ -1,0 +1,24 @@
+<mat-card class="user-card">
+  <mat-card-header>
+    <mat-card-title>{{task.name}}</mat-card-title>
+  </mat-card-header>
+  <mat-card-content *ngIf="!isEditMode">
+    <p>ID: {{ task.task_id }}</p>
+    <p>First name: {{ task.name }}</p>
+    <p>User ID: {{ task.user_id }}</p>
+    <p>Goal: {{ task.goal }}</p>
+    <p>Parent task id: {{ task.parent_task_id }}</p>
+
+    <mat-spinner [style.display]="showSpinner ? 'block' : 'none'"></mat-spinner>
+  </mat-card-content>
+  <mat-card-content *ngIf="isEditMode">
+    <app-task-form
+      [task]="task"
+      (afterRequest)="triggerEvent()"
+    ></app-task-form>
+  </mat-card-content>
+  <mat-card-actions>
+    <button mat-raised-button (click)="edit()" color="primary">Edit</button>
+    <button mat-raised-button (click)="delete()" color="secondary">Delete</button>
+  </mat-card-actions>
+</mat-card>
