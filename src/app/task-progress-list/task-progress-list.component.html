@@ -1,26 +1,29 @@
-<mat-table [dataSource]="dataSource" class="mat-elevation-z8">
+<h1>My tasks</h1>
+<table mat-table [dataSource]="dataSource" class="mat-elevation-z8"
+  matSort matSortActive="taskId" matSortDisableClear matSortDirection="asc"
+>
   <ng-container matColumnDef="taskId">
-    <mat-header-cell *matHeaderCellDef> ID </mat-header-cell>
+    <mat-header-cell *matHeaderCellDef mat-sort-header> ID </mat-header-cell>
     <mat-cell *matCellDef="let element"> {{element.taskId}} </mat-cell>
   </ng-container>
 
   <ng-container matColumnDef="name">
-    <mat-header-cell *matHeaderCellDef> Name </mat-header-cell>
+    <mat-header-cell *matHeaderCellDef mat-sort-header> Name </mat-header-cell>
     <mat-cell *matCellDef="let element"> {{element.name}} </mat-cell>
   </ng-container>
 
   <ng-container matColumnDef="progress">
-    <mat-header-cell *matHeaderCellDef> Progress </mat-header-cell>
+    <mat-header-cell *matHeaderCellDef mat-sort-header> Progress </mat-header-cell>
     <mat-cell *matCellDef="let element"> {{element.progress}} </mat-cell>
   </ng-container>
 
   <ng-container matColumnDef="goal">
-    <mat-header-cell *matHeaderCellDef> Goal </mat-header-cell>
+    <mat-header-cell *matHeaderCellDef mat-sort-header> Goal </mat-header-cell>
     <mat-cell *matCellDef="let element"> {{element.goal}} </mat-cell>
   </ng-container>
 
   <ng-container matColumnDef="percent">
-    <mat-header-cell *matHeaderCellDef> % </mat-header-cell>
+    <mat-header-cell *matHeaderCellDef mat-sort-header> % </mat-header-cell>
     <mat-cell *matCellDef="let element"> {{element.percent | percent:'1.0-2'}} </mat-cell>
   </ng-container>
 
@@ -47,4 +50,4 @@
 
   <mat-header-row *matHeaderRowDef="displayedColumns"></mat-header-row>
   <mat-row *matRowDef="let row; columns: displayedColumns;"></mat-row>
-</mat-table>
+</table>

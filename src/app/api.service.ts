@@ -5,6 +5,8 @@ import {Response} from './models/response';
 import {Observable} from 'rxjs';
 import {map} from 'rxjs/operators';
 import {TaskProgress} from './models/task-progress';
+import {TreeNode} from './models/tree-node';
+import {User} from './models/user';
 
 @Injectable({
   providedIn: 'root'
@@ -22,6 +24,12 @@ export class ApiService {
 
   public deleteUser(id) {
     return this.http.delete('/api/users/' + id);
+  }
+
+  public loadUserById(userId: number): Observable<User|null> {
+    return this.http.get<Response<User[]>>('/api/users/' + userId).pipe(
+      map(res => res.payload.length ? res.payload[0] : null)
+    );
   }
 
   public loadOrders() {
@@ -68,5 +76,11 @@ export class ApiService {
 
   public addProgressByTask(taskId: number, progress: number) {
     return this.http.post('/api/tasks/' + taskId + '/progress', {progress});
+  }
+
+  public loadTree(): Observable<TreeNode[]> {
+    return this.http.get<Response<TreeNode[]>>('/api/tree').pipe(
+      map(res => res.payload)
+    );
   }
 }

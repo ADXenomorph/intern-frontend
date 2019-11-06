@@ -5,7 +5,7 @@
       [opened]="!(isHandset$ | async)">
     <mat-toolbar class="logo-toolbar">
       <img class="logo" src="/assets/logo.svg"/>
-      <span class="logo-title">Roowix</span>
+      <span class="logo-title">Roowix OKR</span>
     </mat-toolbar>
     <mat-nav-list>
       <a mat-list-item routerLink="/users">
@@ -26,6 +26,11 @@
       <a mat-list-item routerLink="/progress">
         <mat-icon mat-list-icon>done</mat-icon>
         <span>My tasks</span>
+      </a>
+
+      <a mat-list-item routerLink="/tree">
+        <mat-icon mat-list-icon>account_tree</mat-icon>
+        <span>Tasks tree</span>
       </a>
     </mat-nav-list>
   </mat-sidenav>

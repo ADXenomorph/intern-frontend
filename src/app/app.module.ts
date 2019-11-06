@@ -18,7 +18,7 @@ import {
   MatListModule,
   MatCardModule,
   MatInputModule,
-  MatProgressSpinnerModule, MatTableModule
+  MatProgressSpinnerModule, MatTableModule, MatSortModule
 } from '@angular/material';
 import { HttpClientModule } from '@angular/common/http';
 import { UserComponent } from './user/user.component';
@@ -31,6 +31,7 @@ import { TasksComponent } from './tasks/tasks.component';
 import { TaskComponent } from './task/task.component';
 import { TaskFormComponent } from './task-form/task-form.component';
 import { TaskProgressListComponent } from './task-progress-list/task-progress-list.component';
+import { TreeNodeComponent } from './tree-node/tree-node.component';
 
 registerLocaleData(localeRu);
 
@@ -49,6 +50,7 @@ registerLocaleData(localeRu);
     TaskComponent,
     TaskFormComponent,
     TaskProgressListComponent,
+    TreeNodeComponent,
   ],
   imports: [
     FormsModule,
@@ -66,6 +68,7 @@ registerLocaleData(localeRu);
     MatIconModule,
     MatListModule,
     MatTableModule,
+    MatSortModule,
   ],
   providers: [
     { provide: LOCALE_ID, useValue: 'en' }

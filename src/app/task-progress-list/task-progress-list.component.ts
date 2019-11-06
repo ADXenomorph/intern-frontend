@@ -1,6 +1,6 @@
 import {Component, OnInit, ViewChild} from '@angular/core';
 import {ApiService} from '../api.service';
-import {MatTable} from '@angular/material';
+import {MatSort, MatTable, MatTableDataSource} from '@angular/material';
 import {Task} from '../models/task';
 
 interface Line {
@@ -19,9 +19,10 @@ interface Line {
 })
 export class TaskProgressListComponent implements OnInit {
   @ViewChild(MatTable) matTable: MatTable<any>;
+  @ViewChild(MatSort) sort: MatSort;
 
   displayedColumns: string[] = ['taskId', 'name', 'progress', 'goal', 'percent', 'actions'];
-  dataSource: Line[] = [];
+  dataSource: MatTableDataSource<Line> = new MatTableDataSource<Line>([]);
 
   constructor(private api: ApiService) { }
 
@@ -29,6 +30,8 @@ export class TaskProgressListComponent implements OnInit {
     this.api.loadTasks().subscribe(
       tasks => tasks.forEach(task => this.reloadTaskProgress(task))
     );
+
+    this.dataSource.sort = this.sort;
   }
 
   reloadTaskProgress(task: Task) {
@@ -52,13 +55,15 @@ export class TaskProgressListComponent implements OnInit {
   }
 
   upsertLineByTaskId(line: Line) {
-    const index = this.dataSource.map(ds => ds.taskId).indexOf(line.taskId);
+    const index = this.dataSource.data.map(ds => ds.taskId).indexOf(line.taskId);
     if (index === -1) {
-      this.dataSource.push(line);
+      this.dataSource.data.push(line);
     } else {
-      this.dataSource[index] = line;
+      this.dataSource.data[index] = line;
     }
 
+    this.sort.sort(this.sort.sortables.get(this.sort.active));
+    this.sort.direction = 'desc';
     this.matTable.renderRows();
   }
 

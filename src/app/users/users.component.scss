@@ -6,4 +6,10 @@
 :host .user-list {
   display:flex;
   flex-direction: row;
+  flex-wrap: wrap;
+
+  app-user {
+    margin-right: 16px;
+    margin-bottom: 16px;
+  }
 }
