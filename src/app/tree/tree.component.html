@@ -1,18 +1,18 @@
-<ng-container *ngFor="let level of getLevels()">
-  <div class="tree-level">
-    <ng-container *ngFor="let node of getNodesByLevel(level)">
-      <app-tree-node
-        [node]="node"
-        [color]="getLevelColor(level)"
+<div *ngFor="let level of getLevels()" class="tree-level">
+  <ng-container *ngFor="let node of getNodesByLevel(level)">
+    <app-tree-node
+      cdkDropList
+      (cdkDropListDropped)="drop($event)"
+      [cdkDropListData]="node"
+      [node]="node"
+      [color]="getLevelColor(level)"
+      [attr.data-task-id]="node.task_id"
+    ></app-tree-node>
+    <svg #svg *ngFor="let child of getNodeChildren(node)">
+      <line
         [attr.data-task-id]="node.task_id"
-      ></app-tree-node>
-      <svg *ngFor="let child of getNodeChildren(node)">
-        <line
-          #svgLine
-          [attr.data-task-id]="node.task_id"
-          [attr.data-child-id]="child.task_id"
-        />
-      </svg>
-    </ng-container>
-  </div>
-</ng-container>
+        [attr.data-child-id]="child.task_id"
+      />
+    </svg>
+  </ng-container>
+</div>

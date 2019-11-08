@@ -14,8 +14,10 @@ import {User} from './models/user';
 export class ApiService {
   constructor(private http: HttpClient) { }
 
-  public loadUsers() {
-    return this.http.get('/api/users');
+  public loadUsers(): Observable<User[]> {
+    return this.http.get<Response<User[]>>('/api/users').pipe(
+      map(res => res.payload)
+    );
   }
 
   public upsertUser(id, firstName, lastName) {

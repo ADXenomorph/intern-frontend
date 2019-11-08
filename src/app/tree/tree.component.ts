@@ -2,6 +2,7 @@ import {Component, ElementRef, OnInit, QueryList, ViewChildren} from '@angular/c
 import {TreeNode} from '../models/tree-node';
 import {ApiService} from '../api.service';
 import {TreeNodeComponent} from '../tree-node/tree-node.component';
+import {Task} from '../models/task';
 
 @Component({
   selector: 'app-tree',
@@ -9,7 +10,7 @@ import {TreeNodeComponent} from '../tree-node/tree-node.component';
   styleUrls: ['./tree.component.scss']
 })
 export class TreeComponent implements OnInit {
-  @ViewChildren('svgLine') private svgLines: QueryList<ElementRef>;
+  @ViewChildren('svg') private svg: QueryList<ElementRef>;
   @ViewChildren(TreeNodeComponent, { read: ElementRef }) private nodes: QueryList<ElementRef>;
 
   treeNodes: TreeNode[];
@@ -20,6 +21,10 @@ export class TreeComponent implements OnInit {
   constructor(private api: ApiService) { }
 
   ngOnInit() {
+    this.loadTree();
+  }
+
+  loadTree() {
     this.api.loadTree().subscribe(res => {
       this.treeNodes = this.fillNodes(res);
     });
@@ -87,8 +92,9 @@ export class TreeComponent implements OnInit {
   }
 
   redrawLines() {
-    this.svgLines.toArray().forEach(element => {
-      const line: HTMLElement = element.nativeElement;
+    this.svg.toArray().forEach(element => {
+      const svg: HTMLElement = element.nativeElement;
+      const line: HTMLElement = svg.childNodes[0] as any;
       const parentTaskId = line.dataset.taskId;
       const childTaskId = line.dataset.childId;
 
@@ -100,10 +106,32 @@ export class TreeComponent implements OnInit {
       const pNe = parentNode.nativeElement;
       const cNe = childNode.nativeElement;
 
-      line.setAttribute('x1', '' + (pNe.offsetLeft + pNe.offsetWidth / 2));
-      line.setAttribute('y1', '' + (pNe.offsetTop + pNe.offsetHeight));
-      line.setAttribute('x2', '' + (cNe.offsetLeft + cNe.offsetWidth / 2));
-      line.setAttribute('y2', '' + (cNe.offsetTop));
+      const svgLeft = Math.min(pNe.offsetLeft + pNe.offsetWidth / 2, cNe.offsetLeft + cNe.offsetWidth / 2);
+      const svgTop = pNe.offsetTop + pNe.offsetHeight;
+      const svgWidth = Math.max(pNe.offsetLeft + pNe.offsetWidth / 2, cNe.offsetLeft + cNe.offsetWidth / 2) - svgLeft + 4;
+      const svgHeight = cNe.offsetTop - svgTop;
+      svg.style.left = '' + svgLeft;
+      svg.style.top = '' + svgTop;
+      svg.style.width = '' + svgWidth;
+      svg.style.height = '' + svgHeight;
+
+      line.setAttribute('x1', '' + (pNe.offsetLeft <= cNe.offsetLeft ? 2 : svgWidth - 2));
+      line.setAttribute('y1', '0');
+      line.setAttribute('x2', '' + (pNe.offsetLeft > cNe.offsetLeft ? 2 : svgWidth - 2));
+      line.setAttribute('y2', '' + svgHeight);
     });
+  }
+
+  drop(event) {
+    const treeNode: TreeNode = event.container.data;
+    const task: Task = {
+      goal: treeNode.goal,
+      name: treeNode.name,
+      task_id: treeNode.task_id,
+      parent_task_id: treeNode.parent_task_id,
+      user_id: event.item.data.user_id,
+    };
+    // todo update assignee by task id
+    this.api.upsertTask(task).subscribe(() => this.loadTree());
   }
 }

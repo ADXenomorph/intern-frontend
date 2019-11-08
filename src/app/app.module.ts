@@ -18,7 +18,7 @@ import {
   MatListModule,
   MatCardModule,
   MatInputModule,
-  MatProgressSpinnerModule, MatTableModule, MatSortModule
+  MatProgressSpinnerModule, MatTableModule, MatSortModule, MatProgressBarModule
 } from '@angular/material';
 import { HttpClientModule } from '@angular/common/http';
 import { UserComponent } from './user/user.component';
@@ -32,6 +32,10 @@ import { TaskComponent } from './task/task.component';
 import { TaskFormComponent } from './task-form/task-form.component';
 import { TaskProgressListComponent } from './task-progress-list/task-progress-list.component';
 import { TreeNodeComponent } from './tree-node/tree-node.component';
+import { TreePageComponent } from './tree-page/tree-page.component';
+import { UsersColumnComponent } from './users-column/users-column.component';
+import { UsersColumnRowComponent } from './users-column-row/users-column-row.component';
+import {DragDropModule} from '@angular/cdk/drag-drop';
 
 registerLocaleData(localeRu);
 
@@ -51,6 +55,9 @@ registerLocaleData(localeRu);
     TaskFormComponent,
     TaskProgressListComponent,
     TreeNodeComponent,
+    TreePageComponent,
+    UsersColumnComponent,
+    UsersColumnRowComponent,
   ],
   imports: [
     FormsModule,
@@ -69,6 +76,8 @@ registerLocaleData(localeRu);
     MatListModule,
     MatTableModule,
     MatSortModule,
+    MatProgressBarModule,
+    DragDropModule,
   ],
   providers: [
     { provide: LOCALE_ID, useValue: 'en' }

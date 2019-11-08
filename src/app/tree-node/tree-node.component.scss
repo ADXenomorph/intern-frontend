@@ -5,4 +5,17 @@
   span {
     display: block;
   }
+
+  .mat-progress-bar {
+    height: 24px;
+  }
+
+  .progress-bar-text {
+    position: relative;
+    font-size: 16px;
+    top: -20px;
+    text-align: center;
+    mix-blend-mode: difference;
+    color: greenyellow;
+  }
 }

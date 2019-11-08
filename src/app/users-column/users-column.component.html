@@ -1,0 +1,10 @@
+<div>
+  <div cdkDropList>
+    <app-users-column-row
+      cdkDrag
+      [cdkDragData]="user"
+      *ngFor="let user of (users | async)"
+      [user]="user"
+    ></app-users-column-row>
+  </div>
+</div>

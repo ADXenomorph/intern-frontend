@@ -1,8 +1,15 @@
 <mat-card class="tree-node-card" [style.background-color]="color">
   <mat-card-content>
-    <span>{{ node.name }}</span>
+    <span>{{ node.task_id + ': ' + node.name }}</span>
     <span>{{ node.current_progress }} / {{ node.goal }}</span>
     <span>{{ node.userName }}</span>
-    <span>{{ node.percent | percent:'1.0-2' }}</span>
+    <div>
+      <mat-progress-bar
+          [color]="'primary'"
+          [mode]="'determinate'"
+          [value]="node.percent * 100"
+      ></mat-progress-bar>
+      <span class="progress-bar-text">{{ node.percent | percent:'1.0-2' }}</span>
+    </div>
   </mat-card-content>
 </mat-card>

@@ -1,0 +1,31 @@
+@import "src/styles";
+
+:host {
+  display: flex;
+  flex-direction: column;
+  padding: 16px;
+}
+
+app-users-column-row {
+  cursor: grab;
+
+  &:active {
+    cursor: grabbing;
+  }
+
+  &:nth-child(even) {
+    background-color: mat-color($primary, 100);
+  }
+
+  &:nth-child(odd) {
+    background-color: mat-color($primary, 50);
+  }
+}
+
+::ng-deep {
+  .tree-level {
+    app-users-column-row.cdk-drag-placeholder {
+      display: none;
+    }
+  }
+}
