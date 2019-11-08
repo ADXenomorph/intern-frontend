@@ -20,8 +20,10 @@ export class ApiService {
     );
   }
 
-  public upsertUser(id, firstName, lastName) {
-    return this.http.post('/api/users', {user_id: id, first_name: firstName, last_name: lastName});
+  public upsertUser(user: User) {
+    return user.user_id
+      ? this.http.post('/api/users/' + user.user_id, user)
+      : this.http.put('/api/users', user);
   }
 
   public deleteUser(id) {
@@ -32,18 +34,6 @@ export class ApiService {
     return this.http.get<Response<User[]>>('/api/users/' + userId).pipe(
       map(res => res.payload.length ? res.payload[0] : null)
     );
-  }
-
-  public loadOrders() {
-    return this.http.get('/api/orders');
-  }
-
-  public upsertOrder(id, userId, itemName) {
-    return this.http.post('/api/orders', {order_id: id, user_id: userId, item_name: itemName});
-  }
-
-  public deleteOrder(id) {
-    return this.http.delete('/api/orders/' + id);
   }
 
   public loadTasks(): Observable<Task[]> {
@@ -59,7 +49,9 @@ export class ApiService {
   }
 
   public upsertTask(task: Task) {
-    return this.http.post('/api/tasks', task);
+    return task.task_id
+      ? this.http.post('/api/tasks/' + task.task_id, task)
+      : this.http.put('/api/tasks', task);
   }
 
   public deleteTask(task: Task) {
@@ -67,7 +59,9 @@ export class ApiService {
   }
 
   public upsertTaskProgress(progress: TaskProgress) {
-    return this.http.post('/api/progress', progress);
+    return progress.task_progress_id
+      ? this.http.post('/api/progress/' + progress.task_progress_id, progress)
+      : this.http.put('/api/progress', progress);
   }
 
   public loadProgressByTask(taskId: number): Observable<TaskProgress[]> {

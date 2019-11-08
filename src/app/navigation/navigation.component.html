@@ -1,49 +1,29 @@
 <mat-sidenav-container class="sidenav-container">
-  <mat-sidenav #drawer class="sidenav" fixedInViewport="true"
-      [attr.role]="(isHandset$ | async) ? 'dialog' : 'navigation'"
-      [mode]="(isHandset$ | async) ? 'over' : 'side'"
-      [opened]="!(isHandset$ | async)">
-    <mat-toolbar class="logo-toolbar">
-      <img class="logo" src="/assets/logo.svg"/>
-      <span class="logo-title">Roowix OKR</span>
-    </mat-toolbar>
-    <mat-nav-list>
-      <a mat-list-item routerLink="/users">
-        <mat-icon mat-list-icon>accessibility_new</mat-icon>
-        <span>Users</span>
-      </a>
-
-      <!--<a mat-list-item routerLink="/orders">
-        <mat-icon mat-list-icon>attach_money</mat-icon>
-        <span>Orders</span>
-      </a>-->
-
-      <a mat-list-item routerLink="/tasks">
-        <mat-icon mat-list-icon>assignment</mat-icon>
-        <span>Edit tasks</span>
-      </a>
-
-      <a mat-list-item routerLink="/progress">
-        <mat-icon mat-list-icon>done</mat-icon>
-        <span>My tasks</span>
-      </a>
-
-      <a mat-list-item routerLink="/tree">
-        <mat-icon mat-list-icon>account_tree</mat-icon>
-        <span>Tasks tree</span>
-      </a>
-    </mat-nav-list>
-  </mat-sidenav>
   <mat-sidenav-content>
     <mat-toolbar color="primary">
-      <button
-        type="button"
-        aria-label="Toggle sidenav"
-        mat-icon-button
-        (click)="drawer.toggle()"
-        *ngIf="isHandset$ | async">
-        <mat-icon aria-label="Side nav toggle icon">menu</mat-icon>
-      </button>
+      <mat-toolbar-row>
+        <div class="logo">
+          <app-logo [width]="50" [height]="50" [fill]="'white'"></app-logo>
+          <span class="logo-title">Roowix OKR</span>
+        </div>
+        <a mat-button routerLink="/users" class="route" routerLinkActive="active">
+          <mat-icon>accessibility_new</mat-icon>
+          <span>Users</span>
+        </a>
+        <a mat-button routerLink="/tasks" class="route" routerLinkActive="active">
+          <mat-icon>assignment</mat-icon>
+          <span>Edit tasks</span>
+        </a>
+
+        <a mat-button routerLink="/progress" class="route" routerLinkActive="active">
+          <mat-icon>done</mat-icon>
+          <span>My tasks</span>
+        </a>
+        <a mat-button routerLink="/tree" class="route" routerLinkActive="active">
+          <mat-icon>account_tree</mat-icon>
+          <span>Tasks tree</span>
+        </a>
+      </mat-toolbar-row>
     </mat-toolbar>
     <mat-card class="content"><router-outlet></router-outlet></mat-card>
   </mat-sidenav-content>

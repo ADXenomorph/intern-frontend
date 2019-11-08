@@ -1,9 +1,7 @@
 <h1>User list</h1>
 <div class="user-list">
   <app-user *ngFor="let user of (userList | async)"
-    [id]="user.user_id"
-    [firstName]="user.first_name"
-    [lastName]="user.last_name"
+    [user]="user"
     (afterRequest)="loadUsers()"
   ></app-user>
 </div>

@@ -6,7 +6,6 @@ import localeRu from '@angular/common/locales/ru';
 import { AppRoutingModule } from './app-routing.module';
 import { AppComponent } from './app.component';
 import { UsersComponent } from './users/users.component';
-import { OrdersComponent } from './orders/orders.component';
 import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
 import { NavigationComponent } from './navigation/navigation.component';
 import { LayoutModule } from '@angular/cdk/layout';
@@ -24,8 +23,6 @@ import { HttpClientModule } from '@angular/common/http';
 import { UserComponent } from './user/user.component';
 import { UserFormComponent } from './user-form/user-form.component';
 import {FormsModule} from '@angular/forms';
-import { OrderComponent } from './order/order.component';
-import { OrderFormComponent } from './order-form/order-form.component';
 import { TreeComponent } from './tree/tree.component';
 import { TasksComponent } from './tasks/tasks.component';
 import { TaskComponent } from './task/task.component';
@@ -36,6 +33,7 @@ import { TreePageComponent } from './tree-page/tree-page.component';
 import { UsersColumnComponent } from './users-column/users-column.component';
 import { UsersColumnRowComponent } from './users-column-row/users-column-row.component';
 import {DragDropModule} from '@angular/cdk/drag-drop';
+import { LogoComponent } from './logo/logo.component';
 
 registerLocaleData(localeRu);
 
@@ -43,12 +41,9 @@ registerLocaleData(localeRu);
   declarations: [
     AppComponent,
     UsersComponent,
-    OrdersComponent,
     NavigationComponent,
     UserComponent,
     UserFormComponent,
-    OrderComponent,
-    OrderFormComponent,
     TreeComponent,
     TasksComponent,
     TaskComponent,
@@ -58,6 +53,7 @@ registerLocaleData(localeRu);
     TreePageComponent,
     UsersColumnComponent,
     UsersColumnRowComponent,
+    LogoComponent,
   ],
   imports: [
     FormsModule,

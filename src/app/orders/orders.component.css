@@ -1,9 +1,0 @@
-:host {
-  display: block;
-  padding-left: 10px;
-}
-
-:host .order-list {
-  display:flex;
-  flex-direction: row;
-}

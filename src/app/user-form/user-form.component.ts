@@ -1,5 +1,6 @@
 import {Component, EventEmitter, Input, Output} from '@angular/core';
 import {ApiService} from '../api.service';
+import {User} from '../models/user';
 
 @Component({
   selector: 'app-user-form',
@@ -7,9 +8,7 @@ import {ApiService} from '../api.service';
   styleUrls: ['./user-form.component.css']
 })
 export class UserFormComponent {
-  @Input() id = null;
-  @Input() firstName;
-  @Input() lastName;
+  @Input() user: User = new User();
 
   @Output() afterRequest = new EventEmitter();
 
@@ -20,13 +19,11 @@ export class UserFormComponent {
   create() {
     this.showSpinner = true;
     this.api
-      .upsertUser(this.id, this.firstName, this.lastName)
+      .upsertUser(this.user)
       .subscribe(() => {
         this.showSpinner = false;
 
-        this.id = null;
-        this.firstName = null;
-        this.lastName = null;
+        this.user = new User();
 
         this.afterRequest.emit();
       });

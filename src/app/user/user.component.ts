@@ -1,5 +1,6 @@
 import {Component, EventEmitter, Input, OnInit, Output} from '@angular/core';
 import {ApiService} from '../api.service';
+import {User} from '../models/user';
 
 @Component({
   selector: 'app-user',
@@ -7,9 +8,7 @@ import {ApiService} from '../api.service';
   styleUrls: ['./user.component.scss']
 })
 export class UserComponent implements OnInit {
-  @Input() id;
-  @Input() firstName;
-  @Input() lastName;
+  @Input() user: User;
 
   @Output() afterRequest = new EventEmitter();
 
@@ -24,7 +23,7 @@ export class UserComponent implements OnInit {
   delete() {
     this.showSpinner = true;
     this.api
-      .deleteUser(this.id)
+      .deleteUser(this.user.user_id)
       .subscribe(() => {
         this.showSpinner = false;
         this.triggerEvent();
