@@ -17,7 +17,7 @@ import {
   MatListModule,
   MatCardModule,
   MatInputModule,
-  MatProgressSpinnerModule, MatTableModule, MatSortModule, MatProgressBarModule
+  MatProgressSpinnerModule, MatTableModule, MatSortModule, MatProgressBarModule, MatRippleModule
 } from '@angular/material';
 import { HttpClientModule } from '@angular/common/http';
 import { UserComponent } from './user/user.component';
@@ -74,6 +74,7 @@ registerLocaleData(localeRu);
     MatSortModule,
     MatProgressBarModule,
     DragDropModule,
+    MatRippleModule,
   ],
   providers: [
     { provide: LOCALE_ID, useValue: 'en' }

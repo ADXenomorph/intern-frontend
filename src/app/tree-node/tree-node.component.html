@@ -1,9 +1,9 @@
-<mat-card class="tree-node-card" [style.background-color]="color">
+<mat-card mat-ripple class="tree-node-card" [style.background-color]="color" (click)="clickNode()">
   <mat-card-content>
     <span>{{ node.task_id + ': ' + node.name }}</span>
     <span>{{ node.current_progress }} / {{ node.goal }}</span>
     <span>{{ node.userName }}</span>
-    <div>
+    <div class="progress-bar-container">
       <mat-progress-bar
           [color]="'primary'"
           [mode]="'determinate'"

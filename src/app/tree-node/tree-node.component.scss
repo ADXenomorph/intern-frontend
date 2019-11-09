@@ -1,12 +1,18 @@
+@import "src/styles";
+
 .tree-node-card {
   width: 200px;
   background-color: lightgray;
+
+  .mat-card-content {
+    margin-bottom: 0;
+  }
 
   span {
     display: block;
   }
 
-  .mat-progress-bar {
+  .progress-bar-container, .mat-progress-bar {
     height: 24px;
   }
 

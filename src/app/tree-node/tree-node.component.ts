@@ -1,4 +1,4 @@
-import { Component, Input } from '@angular/core';
+import {Component, EventEmitter, Input, Output} from '@angular/core';
 import { TreeNode } from '../models/tree-node';
 
 @Component({
@@ -9,4 +9,10 @@ import { TreeNode } from '../models/tree-node';
 export class TreeNodeComponent {
   @Input() node: TreeNode;
   @Input() color: string;
+
+  @Output() nodeClick = new EventEmitter();
+
+  public clickNode() {
+    this.nodeClick.emit();
+  }
 }

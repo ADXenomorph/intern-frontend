@@ -9,4 +9,5 @@ export class TreeNode {
   percent: number;
   userName: string;
   level: number;
+  visible = true;
 }

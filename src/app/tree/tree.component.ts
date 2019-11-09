@@ -3,6 +3,8 @@ import {TreeNode} from '../models/tree-node';
 import {ApiService} from '../api.service';
 import {TreeNodeComponent} from '../tree-node/tree-node.component';
 import {Task} from '../models/task';
+import {Subject} from 'rxjs';
+import {debounceTime} from 'rxjs/operators';
 
 @Component({
   selector: 'app-tree',
@@ -31,11 +33,15 @@ export class TreeComponent implements OnInit {
   }
 
   fillNodes(nodes: TreeNode[]): TreeNode[] {
+    const redraws = (new Subject());
+    redraws.pipe(debounceTime(500)).subscribe(() => this.redrawLines());
+
     nodes.forEach(node => {
+      node.visible = true;
       this.api.loadUserById(node.user_id)
         .subscribe(user => {
           node.userName = user.last_name + ' ' + user.first_name;
-          this.redrawLines();
+          redraws.next(1);
         });
     });
 
@@ -98,6 +104,12 @@ export class TreeComponent implements OnInit {
       const parentTaskId = line.dataset.taskId;
       const childTaskId = line.dataset.childId;
 
+      const childTreeNode = this.treeNodes.find(n => n.task_id === parseInt(childTaskId, 10));
+      if (!childTreeNode.visible) {
+        this.resetSvgAndLine(svg, line);
+        return;
+      }
+
       const parentNode = this.nodes.toArray()
         .find(nodeEl => nodeEl.nativeElement.dataset.taskId === parentTaskId);
       const childNode = this.nodes.toArray()
@@ -110,6 +122,7 @@ export class TreeComponent implements OnInit {
       const svgTop = pNe.offsetTop + pNe.offsetHeight;
       const svgWidth = Math.max(pNe.offsetLeft + pNe.offsetWidth / 2, cNe.offsetLeft + cNe.offsetWidth / 2) - svgLeft + 4;
       const svgHeight = cNe.offsetTop - svgTop;
+
       svg.style.left = '' + svgLeft;
       svg.style.top = '' + svgTop;
       svg.style.width = '' + svgWidth;
@@ -120,6 +133,18 @@ export class TreeComponent implements OnInit {
       line.setAttribute('x2', '' + (pNe.offsetLeft > cNe.offsetLeft ? 2 : svgWidth - 2));
       line.setAttribute('y2', '' + svgHeight);
     });
+  }
+
+  private resetSvgAndLine(svg, line) {
+    svg.style.left = '0';
+    svg.style.top = '0';
+    svg.style.width = '0';
+    svg.style.height = '0';
+
+    line.setAttribute('x1', '0');
+    line.setAttribute('y1', '0');
+    line.setAttribute('x2', '0');
+    line.setAttribute('y2', '0');
   }
 
   drop(event) {
@@ -133,5 +158,22 @@ export class TreeComponent implements OnInit {
     };
     // todo update assignee by task id
     this.api.upsertTask(task).subscribe(() => this.loadTree());
+  }
+
+  toggleChildren(node: TreeNode) {
+    const hasChildren = !!this.treeNodes.find(n => n.parent_task_id === node.task_id);
+    if (hasChildren) {
+      this.toggleChildrenVisibility(node);
+      setTimeout(() => this.redrawLines(), 5);
+    }
+  }
+
+  private toggleChildrenVisibility(node: TreeNode) {
+    this.treeNodes
+      .filter(n => n.parent_task_id === node.task_id)
+      .forEach(n => {
+        n.visible = !n.visible;
+        this.toggleChildrenVisibility(n);
+      });
   }
 }
