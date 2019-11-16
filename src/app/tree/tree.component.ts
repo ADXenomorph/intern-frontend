@@ -38,7 +38,7 @@ export class TreeComponent implements OnInit {
 
     nodes.forEach(node => {
       node.visible = true;
-      this.api.loadUserById(node.user_id)
+      this.api.loadUserById(node.assignee_id)
         .subscribe(user => {
           node.userName = user.last_name + ' ' + user.first_name;
           redraws.next(1);

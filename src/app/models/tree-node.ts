@@ -2,10 +2,11 @@
 export class TreeNode {
   task_id: number;
   name: string;
-  user_id: number;
+  assignee_id: number;
   current_progress: number;
   goal: number;
   parent_task_id: number;
+  assignee_type: string;
   percent: number;
   userName: string;
   level: number;
