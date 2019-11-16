@@ -160,20 +160,13 @@ export class TreeComponent implements OnInit {
     this.api.upsertTask(task).subscribe(() => this.loadTree());
   }
 
-  toggleChildren(node: TreeNode) {
-    const hasChildren = !!this.treeNodes.find(n => n.parent_task_id === node.task_id);
-    if (hasChildren) {
-      this.toggleChildrenVisibility(node);
-      setTimeout(() => this.redrawLines(), 5);
-    }
+  isVisible(node: TreeNode) {
+    const parent = this.treeNodes.find(n => n.task_id === node.parent_task_id);
+    return node.visible && (!parent || this.isVisible(parent));
   }
 
-  private toggleChildrenVisibility(node: TreeNode) {
-    this.treeNodes
-      .filter(n => n.parent_task_id === node.task_id)
-      .forEach(n => {
-        n.visible = !n.visible;
-        this.toggleChildrenVisibility(n);
-      });
+  toggleVisibility(node: TreeNode) {
+    this.treeNodes.filter(n => n.parent_task_id === node.task_id).forEach(n => n.visible = !n.visible);
+    setTimeout(() => this.redrawLines(), 5);
   }
 }
