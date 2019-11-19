@@ -8,18 +8,20 @@
         <tr>
           <td>
             <mat-form-field class="example-full-width">
-            <input matInput placeholder="First name" [(ngModel)]="user.first_name" name="firstName" required>
+              <input matInput placeholder="First name" [(ngModel)]="user.first_name" name="firstName" required>
             </mat-form-field>
           </td>
         </tr>
         <tr>
-        <td><mat-form-field class="example-full-width">
-          <input matInput placeholder="Last name" [(ngModel)]="user.last_name" name="lastName" required>
-        </mat-form-field></td>
+        <td>
+          <mat-form-field class="example-full-width">
+            <input matInput placeholder="Last name" [(ngModel)]="user.last_name" name="lastName" required>
+          </mat-form-field>
+        </td>
         </tr>
       </table>
     </form>
-      <mat-spinner [style.display]="showSpinner ? 'block' : 'none'"></mat-spinner>
+    <mat-spinner [style.display]="showSpinner ? 'block' : 'none'"></mat-spinner>
   </mat-card-content>
   <mat-card-actions>
     <button mat-raised-button (click)="create()" color="primary">Save</button>

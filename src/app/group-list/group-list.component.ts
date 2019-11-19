@@ -2,6 +2,7 @@ import {Component, OnInit} from '@angular/core';
 import {Group} from '../models/group';
 import {ApiService} from '../api.service';
 import {Observable} from 'rxjs';
+import {User} from '../models/user';
 
 @Component({
   selector: 'app-group-list',
@@ -10,10 +11,13 @@ import {Observable} from 'rxjs';
 })
 export class GroupListComponent implements OnInit {
   groups: Observable<Group[]>;
+  users: Observable<User[]>;
+  emptyGroup = new Group();
 
   constructor(private api: ApiService) { }
 
   ngOnInit() {
     this.groups = this.api.loadPopulatedGroups();
+    this.users = this.api.loadUsers();
   }
 }

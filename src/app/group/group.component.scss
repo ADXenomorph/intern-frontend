@@ -1,0 +1,11 @@
+.example-chip-list {
+  width: 100%;
+
+  .mat-standard-chip {
+    width: auto;
+  }
+
+  .mat-chip-input {
+    flex: none;
+  }
+}

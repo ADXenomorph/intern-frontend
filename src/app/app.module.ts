@@ -17,12 +17,19 @@ import {
   MatListModule,
   MatCardModule,
   MatInputModule,
-  MatProgressSpinnerModule, MatTableModule, MatSortModule, MatProgressBarModule, MatRippleModule
+  MatProgressSpinnerModule,
+  MatTableModule,
+  MatSortModule,
+  MatProgressBarModule,
+  MatRippleModule,
+  MatChipsModule,
+  MatAutocompleteModule,
+  MatExpansionModule
 } from '@angular/material';
 import { HttpClientModule } from '@angular/common/http';
 import { UserComponent } from './user/user.component';
 import { UserFormComponent } from './user-form/user-form.component';
-import { FormsModule } from '@angular/forms';
+import {FormsModule, ReactiveFormsModule} from '@angular/forms';
 import { TreeComponent } from './tree/tree.component';
 import { TasksComponent } from './tasks/tasks.component';
 import { TaskComponent } from './task/task.component';
@@ -81,6 +88,10 @@ registerLocaleData(localeRu);
     MatProgressBarModule,
     DragDropModule,
     MatRippleModule,
+    MatChipsModule,
+    ReactiveFormsModule,
+    MatAutocompleteModule,
+    MatExpansionModule,
   ],
   providers: [
     { provide: LOCALE_ID, useValue: 'en' }

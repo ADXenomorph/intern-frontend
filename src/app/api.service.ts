@@ -97,4 +97,14 @@ export class ApiService {
       }))
     );
   }
+
+  public upsertGroup(group: Group) {
+    return group.group_id
+      ? this.http.post('/api/groups/' + group.group_id, group).subscribe()
+      : this.http.put('/api/groups', group).subscribe();
+  }
+
+  public deleteGroup(group: Group) {
+    return this.http.delete('/api/groups/' + group.group_id).subscribe();
+  }
 }

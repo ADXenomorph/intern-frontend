@@ -1,4 +1,22 @@
+<mat-accordion class="example-headers-align">
+  <mat-expansion-panel *ngFor="let group of (groups | async)">
+    <mat-expansion-panel-header>
+      <mat-panel-title>{{ group.name }}</mat-panel-title>
+    </mat-expansion-panel-header>
+
+    <app-group
+      [group]="group"
+      [users]="users"
+    ></app-group>
+  </mat-expansion-panel>
+</mat-accordion>
+
 <app-group
   *ngFor="let group of (groups | async)"
   [group]="group"
+  [users]="users"
+></app-group>
+<app-group
+  [group]="emptyGroup"
+  [users]="users"
 ></app-group>
