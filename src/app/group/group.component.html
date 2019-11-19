@@ -2,7 +2,7 @@
   <input matInput placeholder="Name" [(ngModel)]="group.name" name="name" required>
 </mat-form-field>
 <mat-form-field class="chip-list">
-  <mat-chip-list class="mat-chip-list-stacked" #chipList aria-label="User selection">
+  <mat-chip-list #chipList aria-label="User selection">
     <mat-chip
       *ngFor="let user of group.users"
       (removed)="removeUser(user)"
