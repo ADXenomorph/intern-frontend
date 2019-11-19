@@ -4,4 +4,12 @@
 
 app-group {
   margin-right: 32px;
+
+  ::ng-deep .actions {
+    float: right;
+  }
+}
+
+mat-accordion {
+  width: 600px;
 }

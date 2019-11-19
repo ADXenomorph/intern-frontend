@@ -1,11 +1,15 @@
-.example-chip-list {
-  width: 100%;
+:host {
+  display: flex;
+  flex-direction: column;
+}
 
+.chip-list {
   .mat-standard-chip {
     width: auto;
   }
 
   .mat-chip-input {
     flex: none;
+    width: 100%;
   }
 }

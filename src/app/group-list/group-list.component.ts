@@ -20,4 +20,8 @@ export class GroupListComponent implements OnInit {
     this.groups = this.api.loadPopulatedGroups();
     this.users = this.api.loadUsers();
   }
+
+  getUserNames(group: Group): string {
+    return group.users.map(u => u.last_name + ' ' + u.first_name).join(', ');
+  }
 }
