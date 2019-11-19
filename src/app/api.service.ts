@@ -7,6 +7,8 @@ import {map} from 'rxjs/operators';
 import {TaskProgress} from './models/task-progress';
 import {TreeNode} from './models/tree-node';
 import {User} from './models/user';
+import {Group} from './models/group';
+import {PopulatedGroupResponse} from './models/populated-group-response';
 
 @Injectable({
   providedIn: 'root'
@@ -77,6 +79,22 @@ export class ApiService {
   public loadTree(): Observable<TreeNode[]> {
     return this.http.get<Response<TreeNode[]>>('/api/tree').pipe(
       map(res => res.payload)
+    );
+  }
+
+  public loadGroups(): Observable<Group[]> {
+    return this.http.get<Response<Group[]>>('/api/groups').pipe(
+      map(res => res.payload)
+    );
+  }
+
+  public loadPopulatedGroups(): Observable<Group[]> {
+    return this.http.get<Response<PopulatedGroupResponse[]>>('/api/populated-groups').pipe(
+      map(res => res.payload.map(populatedGroup => {
+        const group = populatedGroup.group;
+        group.users = populatedGroup.users;
+        return group;
+      }))
     );
   }
 }

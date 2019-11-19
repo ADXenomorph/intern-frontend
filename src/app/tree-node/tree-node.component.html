@@ -2,12 +2,12 @@
   <mat-card-content>
     <span>{{ node.task_id + ': ' + node.name }}</span>
     <span>{{ node.current_progress }} / {{ node.goal }}</span>
-    <span>{{ node.userName }}</span>
+    <span>{{ node.assignee_name }}</span>
     <div class="progress-bar-container">
       <mat-progress-bar
-          [color]="'primary'"
-          [mode]="'determinate'"
-          [value]="node.percent * 100"
+        [color]="'primary'"
+        [mode]="'determinate'"
+        [value]="node.percent * 100"
       ></mat-progress-bar>
       <span class="progress-bar-text">{{ node.percent | percent:'1.0-2' }}</span>
     </div>

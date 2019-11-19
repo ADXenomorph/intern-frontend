@@ -22,7 +22,7 @@ import {
 import { HttpClientModule } from '@angular/common/http';
 import { UserComponent } from './user/user.component';
 import { UserFormComponent } from './user-form/user-form.component';
-import {FormsModule} from '@angular/forms';
+import { FormsModule } from '@angular/forms';
 import { TreeComponent } from './tree/tree.component';
 import { TasksComponent } from './tasks/tasks.component';
 import { TaskComponent } from './task/task.component';
@@ -30,10 +30,13 @@ import { TaskFormComponent } from './task-form/task-form.component';
 import { TaskProgressListComponent } from './task-progress-list/task-progress-list.component';
 import { TreeNodeComponent } from './tree-node/tree-node.component';
 import { TreePageComponent } from './tree-page/tree-page.component';
-import { UsersColumnComponent } from './users-column/users-column.component';
+import { AssigneesColumnComponent } from './assignees-column/assignees-column.component';
 import { UsersColumnRowComponent } from './users-column-row/users-column-row.component';
-import {DragDropModule} from '@angular/cdk/drag-drop';
+import { DragDropModule } from '@angular/cdk/drag-drop';
 import { LogoComponent } from './logo/logo.component';
+import { GroupListComponent } from './group-list/group-list.component';
+import { GroupComponent } from './group/group.component';
+import { GroupColumnRowComponent } from './group-column-row/group-column-row.component';
 
 registerLocaleData(localeRu);
 
@@ -51,9 +54,12 @@ registerLocaleData(localeRu);
     TaskProgressListComponent,
     TreeNodeComponent,
     TreePageComponent,
-    UsersColumnComponent,
+    AssigneesColumnComponent,
     UsersColumnRowComponent,
     LogoComponent,
+    GroupListComponent,
+    GroupComponent,
+    GroupColumnRowComponent,
   ],
   imports: [
     FormsModule,

@@ -1,20 +1,20 @@
 import { async, ComponentFixture, TestBed } from '@angular/core/testing';
 
-import { UsersColumnComponent } from './users-column.component';
+import { GroupColumnRowComponent } from './group-column-row.component';
 
-describe('UsersColumnComponent', () => {
-  let component: UsersColumnComponent;
-  let fixture: ComponentFixture<UsersColumnComponent>;
+describe('GroupColumnRowComponent', () => {
+  let component: GroupColumnRowComponent;
+  let fixture: ComponentFixture<GroupColumnRowComponent>;
 
   beforeEach(async(() => {
     TestBed.configureTestingModule({
-      declarations: [ UsersColumnComponent ]
+      declarations: [ GroupColumnRowComponent ]
     })
     .compileComponents();
   }));
 
   beforeEach(() => {
-    fixture = TestBed.createComponent(UsersColumnComponent);
+    fixture = TestBed.createComponent(GroupColumnRowComponent);
     component = fixture.componentInstance;
     fixture.detectChanges();
   });

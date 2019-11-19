@@ -3,10 +3,10 @@
 :host {
   display: flex;
   flex-direction: column;
-  padding: 16px;
+  padding: 8px;
 }
 
-app-users-column-row {
+app-users-column-row, app-group-column-row {
   cursor: grab;
 
   &:active {
@@ -22,9 +22,15 @@ app-users-column-row {
   }
 }
 
+.separator {
+  line-height: 32px;
+  text-align: center;
+  background-color: mat-color($mat-light-theme-background, status-bar);
+}
+
 ::ng-deep {
   .tree-level {
-    app-users-column-row.cdk-drag-placeholder {
+    app-users-column-row.cdk-drag-placeholder, app-group-column-row.cdk-drag-placeholder {
       display: none;
     }
   }

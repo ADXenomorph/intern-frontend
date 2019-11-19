@@ -1,0 +1,18 @@
+<div>
+  <div cdkDropList>
+    <div class="separator">Users</div>
+    <app-users-column-row
+      cdkDrag
+      [cdkDragData]="user"
+      *ngFor="let user of (users | async)"
+      [user]="user"
+    ></app-users-column-row>
+    <div class="separator">Groups</div>
+    <app-group-column-row
+      cdkDrag
+      [cdkDragData]="group"
+      *ngFor="let group of (groups | async)"
+      [group]="group"
+    ></app-group-column-row>
+  </div>
+</div>

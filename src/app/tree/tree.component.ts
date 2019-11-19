@@ -3,8 +3,6 @@ import {TreeNode} from '../models/tree-node';
 import {ApiService} from '../api.service';
 import {TreeNodeComponent} from '../tree-node/tree-node.component';
 import {Task} from '../models/task';
-import {Subject} from 'rxjs';
-import {debounceTime} from 'rxjs/operators';
 
 @Component({
   selector: 'app-tree',
@@ -27,27 +25,16 @@ export class TreeComponent implements OnInit {
   }
 
   loadTree() {
-    this.api.loadTree().subscribe(res => {
-      this.treeNodes = this.fillNodes(res);
+    this.api.loadTree().subscribe(nodes => {
+      nodes.forEach(node => {
+        node.visible = true;
+      });
+
+      setTimeout(() => this.redrawLines(), 5);
+      this.setChildrenNodeLevels(new TreeNode(), nodes);
+
+      this.treeNodes = nodes;
     });
-  }
-
-  fillNodes(nodes: TreeNode[]): TreeNode[] {
-    const redraws = (new Subject());
-    redraws.pipe(debounceTime(500)).subscribe(() => this.redrawLines());
-
-    nodes.forEach(node => {
-      node.visible = true;
-      this.api.loadUserById(node.assignee_id)
-        .subscribe(user => {
-          node.userName = user.last_name + ' ' + user.first_name;
-          redraws.next(1);
-        });
-    });
-
-    this.setChildrenNodeLevels(new TreeNode(), nodes);
-
-    return nodes;
   }
 
   setChildrenNodeLevels(node: TreeNode, nodes: TreeNode[]) {
@@ -66,7 +53,9 @@ export class TreeComponent implements OnInit {
 
     return this.treeNodes
       .map(node => node.level)
-      .filter((v, i, a) => a.indexOf(v) === i);
+      .filter((v, i, a) => a.indexOf(v) === i)
+      .sort((l1, l2) => l1 - l2)
+    ;
   }
 
   getNodesByLevel(level: number): TreeNode[] {
@@ -149,12 +138,14 @@ export class TreeComponent implements OnInit {
 
   drop(event) {
     const treeNode: TreeNode = event.container.data;
+    const isUser = !!event.item.data.user_id;
     const task: Task = {
       goal: treeNode.goal,
       name: treeNode.name,
       task_id: treeNode.task_id,
       parent_task_id: treeNode.parent_task_id,
-      user_id: event.item.data.user_id,
+      assignee_id: isUser ? event.item.data.user_id : event.item.data.group_id,
+      assignee_type: 'group'
     };
     // todo update assignee by task id
     this.api.upsertTask(task).subscribe(() => this.loadTree());
