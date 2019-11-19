@@ -30,7 +30,7 @@ export class TreeComponent implements OnInit {
         node.visible = true;
       });
 
-      setTimeout(() => this.redrawLines(), 5);
+      setTimeout(() => this.redrawLines(), 10);
       this.setChildrenNodeLevels(new TreeNode(), nodes);
 
       this.treeNodes = nodes;

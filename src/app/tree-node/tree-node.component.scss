@@ -3,9 +3,14 @@
 .tree-node-card {
   width: 200px;
   background-color: lightgray;
+  padding: 0;
 
   .mat-card-content {
     margin-bottom: 0;
+    display: flex;
+    flex-direction: column;
+    height: 100%;
+    justify-content: space-between;
   }
 
   span {
@@ -23,5 +28,13 @@
     text-align: center;
     mix-blend-mode: difference;
     color: greenyellow;
+  }
+
+  .task-description {
+    margin: 8px 8px 8px;
+
+    span:not(:last-child) {
+      margin-bottom: 5px;
+    }
   }
 }

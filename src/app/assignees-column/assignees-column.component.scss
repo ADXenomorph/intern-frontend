@@ -24,6 +24,7 @@ app-users-column-row, app-group-column-row {
 
 .separator {
   line-height: 32px;
+  width: 256px;
   text-align: center;
   background-color: mat-color($mat-light-theme-background, status-bar);
 }
