@@ -13,5 +13,5 @@ html, body {
 body {
   margin: 0;
   font-family: Roboto, "Helvetica Neue", sans-serif;
-  background-color: mat-color($mat-light-theme-background, status-bar);
+  background: linear-gradient(90deg, rgba(63,81,181,0.2) 0%, rgba(255,255,255,0.8) 50%, rgba(63,81,181,0.2) 100%);
 }
