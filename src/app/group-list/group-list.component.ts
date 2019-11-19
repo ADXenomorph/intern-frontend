@@ -1,5 +1,5 @@
 import {Component, OnInit} from '@angular/core';
-import {Group} from '../models/group';
+import {PopulatedGroup} from '../models/populated-group';
 import {ApiService} from '../api.service';
 import {Observable} from 'rxjs';
 import {User} from '../models/user';
@@ -10,18 +10,21 @@ import {User} from '../models/user';
   styleUrls: ['./group-list.component.scss']
 })
 export class GroupListComponent implements OnInit {
-  groups: Observable<Group[]>;
+  groups: Observable<PopulatedGroup[]>;
   users: Observable<User[]>;
-  emptyGroup = new Group();
 
   constructor(private api: ApiService) { }
 
   ngOnInit() {
-    this.groups = this.api.loadPopulatedGroups();
+    this.loadGroups();
     this.users = this.api.loadUsers();
   }
 
-  getUserNames(group: Group): string {
+  loadGroups() {
+    this.groups = this.api.loadPopulatedGroups();
+  }
+
+  getUserNames(group: PopulatedGroup): string {
     return group.users.map(u => u.last_name + ' ' + u.first_name).join(', ');
   }
 }

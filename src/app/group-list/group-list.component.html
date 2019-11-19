@@ -3,7 +3,7 @@
   <mat-expansion-panel *ngFor="let group of (groups | async)">
     <mat-expansion-panel-header>
       <mat-panel-title>
-        {{ group.name }}
+        {{ group.group.name }}
       </mat-panel-title>
       <mat-panel-description>
         {{ getUserNames(group) }}
@@ -13,6 +13,7 @@
     <app-group
       [group]="group"
       [users]="users"
+      (afterRequest)="loadGroups()"
     ></app-group>
   </mat-expansion-panel>
 
@@ -22,8 +23,8 @@
     </mat-expansion-panel-header>
 
     <app-group
-      [group]="emptyGroup"
       [users]="users"
+      (afterRequest)="loadGroups()"
     ></app-group>
   </mat-expansion-panel>
 </mat-accordion>

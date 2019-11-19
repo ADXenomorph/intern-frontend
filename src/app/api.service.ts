@@ -8,7 +8,7 @@ import {TaskProgress} from './models/task-progress';
 import {TreeNode} from './models/tree-node';
 import {User} from './models/user';
 import {Group} from './models/group';
-import {PopulatedGroupResponse} from './models/populated-group-response';
+import {PopulatedGroup} from './models/populated-group';
 
 @Injectable({
   providedIn: 'root'
@@ -88,23 +88,19 @@ export class ApiService {
     );
   }
 
-  public loadPopulatedGroups(): Observable<Group[]> {
-    return this.http.get<Response<PopulatedGroupResponse[]>>('/api/populated-groups').pipe(
-      map(res => res.payload.map(populatedGroup => {
-        const group = populatedGroup.group;
-        group.users = populatedGroup.users;
-        return group;
-      }))
+  public loadPopulatedGroups(): Observable<PopulatedGroup[]> {
+    return this.http.get<Response<PopulatedGroup[]>>('/api/populated-groups').pipe(
+      map(res => res.payload)
     );
   }
 
-  public upsertGroup(group: Group) {
-    return group.group_id
-      ? this.http.post('/api/groups/' + group.group_id, group).subscribe()
-      : this.http.put('/api/groups', group).subscribe();
+  public upsertGroup(group: PopulatedGroup) {
+    return group.group.group_id
+      ? this.http.post('/api/populated-groups/' + group.group.group_id, group)
+      : this.http.put('/api/populated-groups', group);
   }
 
   public deleteGroup(group: Group) {
-    return this.http.delete('/api/groups/' + group.group_id).subscribe();
+    return this.http.delete('/api/groups/' + group.group_id);
   }
 }

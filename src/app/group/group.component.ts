@@ -4,9 +4,9 @@ import {FormControl} from '@angular/forms';
 import {MatAutocompleteSelectedEvent, MatAutocomplete} from '@angular/material/autocomplete';
 import {Observable} from 'rxjs';
 import {map, startWith, switchMap} from 'rxjs/operators';
-import {Group} from '../models/group';
 import {User} from '../models/user';
 import {ApiService} from '../api.service';
+import {PopulatedGroup} from '../models/populated-group';
 
 @Component({
   selector: 'app-group',
@@ -14,7 +14,7 @@ import {ApiService} from '../api.service';
   styleUrls: ['./group.component.scss']
 })
 export class GroupComponent implements OnInit {
-  @Input() group: Group;
+  @Input() group: PopulatedGroup;
   @Input() users: Observable<User[]>;
   @Output() afterRequest = new EventEmitter();
 
@@ -26,6 +26,11 @@ export class GroupComponent implements OnInit {
   @ViewChild('auto') matAutocomplete: MatAutocomplete;
 
   constructor(private api: ApiService) {
+    this.setEmptyGroup();
+  }
+
+  private setEmptyGroup() {
+    this.group = {group: {}, users: []} as PopulatedGroup;
   }
 
   ngOnInit(): void {
@@ -41,15 +46,22 @@ export class GroupComponent implements OnInit {
   }
 
   get isNew(): boolean {
-    return !this.group.group_id;
+    return !this.group.group.group_id;
   }
 
   save() {
-    this.api.upsertGroup(this.group);
+    this.api.upsertGroup(this.group).subscribe(() => {
+      this.afterRequest.emit();
+      if (!this.group.group.group_id) {
+        this.setEmptyGroup();
+      }
+    });
   }
 
   delete() {
-    this.api.deleteGroup(this.group);
+    this.api.deleteGroup(this.group.group).subscribe(() => {
+      this.afterRequest.emit();
+    });
   }
 
   removeUser(user: User): void {

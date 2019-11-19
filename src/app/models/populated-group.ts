@@ -2,7 +2,7 @@
 import {User} from './user';
 import {Group} from './group';
 
-export class PopulatedGroupResponse {
+export class PopulatedGroup {
   group: Group;
   users: User[];
 }
