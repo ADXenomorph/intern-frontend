@@ -9,6 +9,8 @@ import { TreeNode } from '../models/tree-node';
 export class TreeNodeComponent {
   @Input() node: TreeNode;
   @Input() color: string;
+  @Input() hasChildren = false;
+  @Input() childrenVisible = true;
 
   @Output() nodeClick = new EventEmitter();
 

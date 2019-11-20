@@ -13,5 +13,12 @@
       ></mat-progress-bar>
       <span class="progress-bar-text">{{ node.percent | percent:'1.0-2' }}</span>
     </div>
+    <div
+      class="children-marker"
+      *ngIf="hasChildren"
+      [style.display]="childrenVisible ? 'none' : 'block'"
+    >
+      <span>...</span>
+    </div>
   </mat-card-content>
 </mat-card>

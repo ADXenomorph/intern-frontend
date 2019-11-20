@@ -160,16 +160,27 @@ export class TreeComponent implements OnInit {
     this.visibility.set(node.task_id, visibility);
   }
 
-  isVisible(node: TreeNode) {
+  isVisibleWithParent(node: TreeNode) {
     const parent = this.treeNodes.find(n => n.task_id === node.parent_task_id);
-    return this.isNodeVisible(node) && (!parent || this.isVisible(parent));
+    return this.isNodeVisible(node) && (!parent || this.isVisibleWithParent(parent));
   }
 
-  toggleVisibility(node: TreeNode) {
+  toggleBranchVisibility(node: TreeNode) {
     this.treeNodes
       .filter(n => n.parent_task_id === node.task_id)
       .forEach(n => this.setNodeVisibility(n, !this.isNodeVisible(n)));
 
     setTimeout(() => this.redrawLines(), 5);
+  }
+
+  nodeHasChildren(node: TreeNode): boolean {
+    return !!this.treeNodes.find(n => n.parent_task_id === node.task_id);
+  }
+
+  childrenAreVisible(node: TreeNode): boolean {
+    return this.nodeHasChildren(node)
+      && !!this.treeNodes
+        .filter(n => n.parent_task_id === node.task_id)
+        .reduce((acc, curr) => acc && this.isNodeVisible(curr), true);
   }
 }

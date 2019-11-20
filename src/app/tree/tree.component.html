@@ -4,11 +4,13 @@
       cdkDropList
       (cdkDropListDropped)="drop($event)"
       [cdkDropListData]="node"
-      (nodeClick)="toggleVisibility(node)"
+      (nodeClick)="toggleBranchVisibility(node)"
       [node]="node"
       [color]="getLevelColor(level)"
       [attr.data-task-id]="node.task_id"
-      [style.display]="isVisible(node) ? 'flex' : 'none'"
+      [style.display]="isVisibleWithParent(node) ? 'flex' : 'none'"
+      [childrenVisible]="childrenAreVisible(node)"
+      [hasChildren]="nodeHasChildren(node)"
     ></app-tree-node>
     <svg #svg *ngFor="let child of getNodeChildren(node)">
       <line

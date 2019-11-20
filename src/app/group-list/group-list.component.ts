@@ -3,6 +3,7 @@ import {PopulatedGroup} from '../models/populated-group';
 import {ApiService} from '../api.service';
 import {Observable} from 'rxjs';
 import {User} from '../models/user';
+import {map} from 'rxjs/operators';
 
 @Component({
   selector: 'app-group-list',
@@ -21,7 +22,9 @@ export class GroupListComponent implements OnInit {
   }
 
   loadGroups() {
-    this.groups = this.api.loadPopulatedGroups();
+    this.groups = this.api.loadPopulatedGroups().pipe(
+      map(groups => groups.sort((g1, g2) => g1.group.group_id - g2.group.group_id))
+    );
   }
 
   getUserNames(group: PopulatedGroup): string {
