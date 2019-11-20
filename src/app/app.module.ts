@@ -26,7 +26,7 @@ import {
   MatAutocompleteModule,
   MatExpansionModule
 } from '@angular/material';
-import { HttpClientModule } from '@angular/common/http';
+import {HTTP_INTERCEPTORS, HttpClientModule} from '@angular/common/http';
 import { UserComponent } from './user/user.component';
 import { UserFormComponent } from './user-form/user-form.component';
 import {FormsModule, ReactiveFormsModule} from '@angular/forms';
@@ -44,6 +44,8 @@ import { LogoComponent } from './logo/logo.component';
 import { GroupListComponent } from './group-list/group-list.component';
 import { GroupComponent } from './group/group.component';
 import { GroupColumnRowComponent } from './group-column-row/group-column-row.component';
+import { AuthPageComponent } from './auth-page/auth-page.component';
+import {AuthInterceptor} from './interceptors/auth.interceptor';
 
 registerLocaleData(localeRu);
 
@@ -67,6 +69,7 @@ registerLocaleData(localeRu);
     GroupListComponent,
     GroupComponent,
     GroupColumnRowComponent,
+    AuthPageComponent,
   ],
   imports: [
     FormsModule,
@@ -94,7 +97,8 @@ registerLocaleData(localeRu);
     MatExpansionModule,
   ],
   providers: [
-    { provide: LOCALE_ID, useValue: 'en' }
+    { provide: LOCALE_ID, useValue: 'en' },
+    { provide: HTTP_INTERCEPTORS, useClass: AuthInterceptor, multi: true }
   ],
   bootstrap: [AppComponent]
 })

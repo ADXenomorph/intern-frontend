@@ -2,6 +2,7 @@ import {Component, OnInit, ViewChild} from '@angular/core';
 import {ApiService} from '../api.service';
 import {MatSort, MatTable, MatTableDataSource} from '@angular/material';
 import {Task} from '../models/task';
+import {LocalStorageService} from '../local-storage.service';
 
 interface Line {
   taskId: number;
@@ -24,10 +25,14 @@ export class TaskProgressListComponent implements OnInit {
   displayedColumns: string[] = ['taskId', 'name', 'progress', 'goal', 'percent', 'actions'];
   dataSource: MatTableDataSource<Line> = new MatTableDataSource<Line>([]);
 
-  constructor(private api: ApiService) { }
+  constructor(
+    private api: ApiService,
+    private localStorage: LocalStorageService
+  ) { }
 
   ngOnInit() {
-    this.api.loadUserTasks(1).subscribe(
+    const userId = this.localStorage.getAuthUserId();
+    this.api.loadUserTasks(userId).subscribe(
       tasks => tasks.forEach(task => this.reloadTaskProgress(task))
     );
 

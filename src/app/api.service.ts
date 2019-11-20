@@ -9,6 +9,7 @@ import {TreeNode} from './models/tree-node';
 import {User} from './models/user';
 import {Group} from './models/group';
 import {PopulatedGroup} from './models/populated-group';
+import {AuthResponse} from './models/auth-response';
 
 @Injectable({
   providedIn: 'root'
@@ -107,5 +108,9 @@ export class ApiService {
 
   public deleteGroup(group: Group) {
     return this.http.delete('/api/populated-groups/' + group.group_id);
+  }
+
+  public auth(email: string, password: string): Observable<AuthResponse> {
+    return this.http.post<Response<AuthResponse>>('/api/auth', {email, password}).pipe(map(res => res.payload));
   }
 }
