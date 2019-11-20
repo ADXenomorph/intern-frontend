@@ -5,12 +5,14 @@ import {AuthResponse} from './models/auth-response';
   providedIn: 'root'
 })
 export class LocalStorageService {
+  private authKey = 'roowix-okr-auth';
+
   saveAuth(auth: AuthResponse) {
-    localStorage.setItem('roowix-okr-auth', JSON.stringify(auth));
+    localStorage.setItem(this.authKey, JSON.stringify(auth));
   }
 
   private getAuth(): AuthResponse|null {
-    return JSON.parse(localStorage.getItem('roowix-okr-auth'));
+    return JSON.parse(localStorage.getItem(this.authKey));
   }
 
   getAuthToken(): string|null {
@@ -19,5 +21,9 @@ export class LocalStorageService {
 
   getAuthUserId(): number|null {
     return this.getAuth() ? this.getAuth().user_id : null;
+  }
+
+  deleteAuth() {
+    localStorage.removeItem(this.authKey);
   }
 }

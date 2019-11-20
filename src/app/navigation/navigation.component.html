@@ -18,7 +18,6 @@
           <mat-icon>assignment</mat-icon>
           <span>Tasks</span>
         </a>
-
         <a mat-button routerLink="/progress" class="route" routerLinkActive="active">
           <mat-icon>done</mat-icon>
           <span>My tasks</span>
@@ -27,6 +26,13 @@
           <mat-icon>account_tree</mat-icon>
           <span>Tasks tree</span>
         </a>
+
+        <button mat-button [matMenuTriggerFor]="profileMenu" class="profile-icon">
+          <mat-icon>account_circle</mat-icon>
+        </button>
+        <mat-menu #profileMenu="matMenu" xPosition="before">
+          <button mat-menu-item (click)="logout()">Logout</button>
+        </mat-menu>
       </mat-toolbar-row>
     </mat-toolbar>
     <div class="content"><router-outlet></router-outlet></div>

@@ -1,7 +1,6 @@
 import { Component } from '@angular/core';
-import { BreakpointObserver, Breakpoints } from '@angular/cdk/layout';
-import { Observable } from 'rxjs';
-import { map } from 'rxjs/operators';
+import {LocalStorageService} from '../local-storage.service';
+import {Router} from '@angular/router';
 
 @Component({
   selector: 'app-navigation',
@@ -9,12 +8,13 @@ import { map } from 'rxjs/operators';
   styleUrls: ['./navigation.component.scss']
 })
 export class NavigationComponent {
+  constructor(
+    private localStorage: LocalStorageService,
+    private router: Router
+  ) {}
 
-  isHandset$: Observable<boolean> = this.breakpointObserver.observe(Breakpoints.Handset)
-    .pipe(
-      map(result => result.matches)
-    );
-
-  constructor(private breakpointObserver: BreakpointObserver) {}
-
+  logout() {
+    this.localStorage.deleteAuth();
+    this.router.navigate(['/auth']);
+  }
 }

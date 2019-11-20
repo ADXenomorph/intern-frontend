@@ -24,7 +24,7 @@ import {
   MatRippleModule,
   MatChipsModule,
   MatAutocompleteModule,
-  MatExpansionModule
+  MatExpansionModule, MatMenuModule
 } from '@angular/material';
 import {HTTP_INTERCEPTORS, HttpClientModule} from '@angular/common/http';
 import { UserComponent } from './user/user.component';
@@ -95,6 +95,7 @@ registerLocaleData(localeRu);
     ReactiveFormsModule,
     MatAutocompleteModule,
     MatExpansionModule,
+    MatMenuModule,
   ],
   providers: [
     { provide: LOCALE_ID, useValue: 'en' },
