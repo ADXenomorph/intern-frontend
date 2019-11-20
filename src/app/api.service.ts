@@ -76,6 +76,11 @@ export class ApiService {
     return this.http.post('/api/tasks/' + taskId + '/progress', {progress});
   }
 
+  public loadUserTasks(userId: number): Observable<Task[]> {
+    return this.http.get<Response<Task[]>>('/api/users/' + userId + '/tasks')
+      .pipe(map(res => res.payload));
+  }
+
   public loadTree(): Observable<TreeNode[]> {
     return this.http.get<Response<TreeNode[]>>('/api/tree').pipe(
       map(res => res.payload)
@@ -101,6 +106,6 @@ export class ApiService {
   }
 
   public deleteGroup(group: Group) {
-    return this.http.delete('/api/groups/' + group.group_id);
+    return this.http.delete('/api/populated-groups/' + group.group_id);
   }
 }

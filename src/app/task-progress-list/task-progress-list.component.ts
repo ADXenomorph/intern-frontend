@@ -27,7 +27,7 @@ export class TaskProgressListComponent implements OnInit {
   constructor(private api: ApiService) { }
 
   ngOnInit() {
-    this.api.loadTasks().subscribe(
+    this.api.loadUserTasks(1).subscribe(
       tasks => tasks.forEach(task => this.reloadTaskProgress(task))
     );
 

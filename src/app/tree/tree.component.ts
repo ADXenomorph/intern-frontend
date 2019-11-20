@@ -17,6 +17,7 @@ export class TreeComponent implements OnInit {
 
   private selectedColors = [];
   private colors = ['#ffb3ba', '#ffdfba', '#ffffba', '#baffc9', '#bae1ff'];
+  private visibility = new Map<number, boolean>();
 
   constructor(private api: ApiService) { }
 
@@ -26,9 +27,8 @@ export class TreeComponent implements OnInit {
 
   loadTree() {
     this.api.loadTree().subscribe(nodes => {
-      nodes.forEach(node => {
-        node.visible = true;
-      });
+      nodes
+        .sort((n1, n2) => n1.task_id - n2.task_id);
 
       setTimeout(() => this.redrawLines(), 10);
       this.setChildrenNodeLevels(new TreeNode(), nodes);
@@ -94,7 +94,7 @@ export class TreeComponent implements OnInit {
       const childTaskId = line.dataset.childId;
 
       const childTreeNode = this.treeNodes.find(n => n.task_id === parseInt(childTaskId, 10));
-      if (!childTreeNode.visible) {
+      if (!this.isNodeVisible(childTreeNode)) {
         this.resetSvgAndLine(svg, line);
         return;
       }
@@ -145,19 +145,31 @@ export class TreeComponent implements OnInit {
       task_id: treeNode.task_id,
       parent_task_id: treeNode.parent_task_id,
       assignee_id: isUser ? event.item.data.user_id : event.item.data.group_id,
-      assignee_type: 'group'
+      assignee_type: isUser ? 'user' : 'group'
     };
     // todo update assignee by task id
     this.api.upsertTask(task).subscribe(() => this.loadTree());
   }
 
+  isNodeVisible(node: TreeNode) {
+    return !this.visibility.has(node.task_id)
+      || this.visibility.get(node.task_id) === true;
+  }
+
+  setNodeVisibility(node: TreeNode, visibility: boolean) {
+    this.visibility.set(node.task_id, visibility);
+  }
+
   isVisible(node: TreeNode) {
     const parent = this.treeNodes.find(n => n.task_id === node.parent_task_id);
-    return node.visible && (!parent || this.isVisible(parent));
+    return this.isNodeVisible(node) && (!parent || this.isVisible(parent));
   }
 
   toggleVisibility(node: TreeNode) {
-    this.treeNodes.filter(n => n.parent_task_id === node.task_id).forEach(n => n.visible = !n.visible);
+    this.treeNodes
+      .filter(n => n.parent_task_id === node.task_id)
+      .forEach(n => this.setNodeVisibility(n, !this.isNodeVisible(n)));
+
     setTimeout(() => this.redrawLines(), 5);
   }
 }
