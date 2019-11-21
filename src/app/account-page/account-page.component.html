@@ -1,0 +1,35 @@
+<mat-card class="change-password-form-card" (keyup.enter)="changePassword()">
+  <mat-card-header>
+    <mat-card-title>Change password</mat-card-title>
+  </mat-card-header>
+  <mat-card-content>
+    <form>
+      <mat-form-field>
+        <input
+          matInput
+          placeholder="Current password"
+          [(ngModel)]="currentPassword"
+          type="password"
+          name="currentPassword"
+          required
+          autocomplete="current-password"
+        >
+      </mat-form-field>
+      <mat-form-field>
+        <input
+          matInput
+          placeholder="New password"
+          [(ngModel)]="newPassword"
+          type="password"
+          name="newPassword"
+          required
+          autocomplete="new-password"
+        >
+      </mat-form-field>
+    </form>
+    <mat-error *ngIf="error">{{ error }}</mat-error>
+  </mat-card-content>
+  <mat-card-actions>
+    <button mat-raised-button (click)="changePassword()" color="primary">Change</button>
+  </mat-card-actions>
+</mat-card>

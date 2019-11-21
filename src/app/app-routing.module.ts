@@ -6,6 +6,7 @@ import {TaskProgressListComponent} from './task-progress-list/task-progress-list
 import {TreePageComponent} from './tree-page/tree-page.component';
 import {GroupListComponent} from './group-list/group-list.component';
 import {AuthPageComponent} from './auth-page/auth-page.component';
+import {AccountPageComponent} from './account-page/account-page.component';
 
 const routes: Routes = [
   { path: '', redirectTo: '/progress', pathMatch: 'full' },
@@ -15,6 +16,7 @@ const routes: Routes = [
   { path: 'tree', component: TreePageComponent },
   { path: 'groups', component: GroupListComponent },
   { path: 'auth', component: AuthPageComponent },
+  { path: 'account', component: AccountPageComponent },
 ];
 
 @NgModule({

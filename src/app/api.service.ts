@@ -113,4 +113,11 @@ export class ApiService {
   public auth(email: string, password: string): Observable<AuthResponse> {
     return this.http.post<Response<AuthResponse>>('/api/auth', {email, password}).pipe(map(res => res.payload));
   }
+
+  public changePassword(oldPass: string, newPass: string): Observable<{}> {
+    return this.http.post<Response<{}>>(
+      '/api/auth/password',
+      {old_password: oldPass, new_password: newPass}
+    ).pipe(map(res => res.payload));
+  }
 }

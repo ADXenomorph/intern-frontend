@@ -46,6 +46,7 @@ import { GroupComponent } from './group/group.component';
 import { GroupColumnRowComponent } from './group-column-row/group-column-row.component';
 import { AuthPageComponent } from './auth-page/auth-page.component';
 import {AuthInterceptor} from './interceptors/auth.interceptor';
+import { AccountPageComponent } from './account-page/account-page.component';
 
 registerLocaleData(localeRu);
 
@@ -70,6 +71,7 @@ registerLocaleData(localeRu);
     GroupComponent,
     GroupColumnRowComponent,
     AuthPageComponent,
+    AccountPageComponent,
   ],
   imports: [
     FormsModule,
